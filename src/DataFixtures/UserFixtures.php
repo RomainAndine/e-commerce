@@ -3,7 +3,8 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use App\Entity\User;
+use App\Entity\Client;
+use App\Entity\Vendeur;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 ;
@@ -15,17 +16,27 @@ class UserFixtures extends Fixture
 
          $faker = Factory::create('fr_FR');
          for ($i = 0; $i < 20; $i++) {
-             $user = new User();
-             $user->setEmail($faker->email);
-             $user->setPassword($faker->password);
-             $user->setPrenom($faker->firstName);
-             $user->setNom($faker->lastName);
-             $user->setRoles($faker->randomElement(['ROLE_ADMIN', 'ROLE_USER']));
-             $manager->persist($user);
+             $client = new Client();
+             $client->setEmail($faker->email);
+             $client->setPassword($faker->password);
+             $client->setNom($faker->lastName);
+             $client->setPrenom($faker->firstName);
+             $client->setRoles(['ROLE_CLIENT']);
+             $manager->persist($client);
          }
+
+         for ($i = 0; $i < 20; $i++) {
+            $vendeur = new Vendeur();
+            $vendeur->setEmail($faker->email);
+            $vendeur->setPassword($faker->password);
+            $vendeur->setNom($faker->lastName);
+            $vendeur->setPrenom($faker->firstName);
+            $vendeur->setRoles(['ROLE_VENDEUR']);
+            $manager->persist($vendeur);
         
 
 
         $manager->flush();
     }
+}
 }

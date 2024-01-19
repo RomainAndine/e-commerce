@@ -16,6 +16,12 @@ class LigneCommande
     #[ORM\Column(length: 255)]
     private ?string $qteCommandee = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ligneCommandes')]
+    private ?Produit $produit = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ligneCommandes')]
+    private ?Commande $commande = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +35,30 @@ class LigneCommande
     public function setQteCommandee(string $qteCommandee): static
     {
         $this->qteCommandee = $qteCommandee;
+
+        return $this;
+    }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(?Produit $produit): static
+    {
+        $this->produit = $produit;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): static
+    {
+        $this->commande = $commande;
 
         return $this;
     }
